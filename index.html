@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nombre de tu App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#01875f;
+    --green-dark:#016b4c;
+    --text:#202124;
+    --text-secondary:#5f6368;
+    --border:#e1e3e6;
+    --border-light:#eceef0;
+    --bg-hover:#f4f5f6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Roboto', Arial, sans-serif;
+    color:var(--text);
+    background:#fff;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit; cursor:pointer;}
+
+  /* ---------- TOP BAR ---------- */
+  .topbar{
+    border-bottom:1px solid var(--border-light);
+    padding:14px 32px;
+  }
+  .topbar-inner{
+    max-width:1600px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    gap:40px;
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .play-logo{width:26px; height:26px; flex-shrink:0;}
+  .brand-name{font-size:21px; color:#5f6368; font-weight:400; letter-spacing:.2px;}
+  .tabs{display:flex; align-items:center; gap:32px; flex:1;}
+  .tabs a{
+    font-size:14px;
+    color:var(--text-secondary);
+    font-weight:500;
+    padding-bottom:16px;
+    padding-top:16px;
+    border-bottom:3px solid transparent;
+  }
+  .tabs a.active{color:var(--text); border-bottom-color:var(--green);}
+  .search-icon{margin-left:auto; color:var(--text-secondary);}
+
+  /* ---------- LAYOUT ---------- */
+  .page{max-width:1600px; margin:0 auto; padding:40px 32px 80px;}
+  .grid{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 340px;
+    gap:24px 80px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{display:flex; justify-content:space-between; gap:32px;}
+  .hero-text{flex:1; min-width:0;}
+  .app-title{
+    font-size:44px;
+    font-weight:400;
+    line-height:1.15;
+    margin:0 0 8px;
+    letter-spacing:-.3px;
+  }
+  .dev-link{
+    display:inline-block;
+    font-size:16px;
+    color:var(--green);
+    margin-bottom:16px;
+  }
+  .dev-link:hover{text-decoration:underline;}
+
+  .stats{display:flex; align-items:center; gap:8px; margin-bottom:20px; border-left:1px solid var(--border); padding-left:16px;}
+  .stat-col{display:flex; flex-direction:column; line-height:1.3;}
+  .stat-value{font-size:14px; font-weight:400; color:var(--text);}
+  .stat-label{font-size:12px; color:var(--text-secondary);}
+
+  .actions{display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:20px;}
+  .btn{
+    border:none;
+    border-radius:999px;
+    padding:10px 24px;
+    font-size:14px;
+    font-weight:500;
+  }
+  .btn-install{background:var(--green); color:#fff;}
+  .btn-install:hover{background:var(--green-dark);}
+  .btn-text{
+    background:transparent;
+    color:var(--green);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 16px;
+  }
+  .btn-text:hover{background:var(--bg-hover);}
+  .btn-text svg{width:18px; height:18px;}
+
+  .device-note{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    color:var(--text-secondary);
+  }
+  .device-note svg{width:18px; height:18px; flex-shrink:0;}
+
+  .hero-icon{flex-shrink:0;}
+  .app-icon{
+    width:176px;
+    height:176px;
+    border-radius:20%;
+    display:block;
+    box-shadow:0 1px 2px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.06);
+    object-fit:cover;
+  }
+
+  /* ---------- SCREENSHOTS ---------- */
+  .screenshots{
+    display:flex;
+    gap:16px;
+    margin-top:44px;
+    overflow-x:auto;
+    padding-bottom:8px;
+    scrollbar-width:thin;
+  }
+  .screenshot{
+    flex:0 0 auto;
+    width:220px;
+    height:440px;
+    border-radius:18px;
+    display:flex;
+    align-items:flex-end;
+    padding:16px;
+    font-size:13px;
+    color:rgba(255,255,255,.85);
+    font-weight:500;
+  }
+  .ph1{background:linear-gradient(160deg,#37474f,#263238);}
+  .ph2{background:linear-gradient(160deg,#00695c,#004d40);}
+  .ph3{background:linear-gradient(160deg,#00897b,#00695c);}
+  .ph4{background:linear-gradient(160deg,#455a64,#37474f);}
+
+  /* ---------- ABOUT ---------- */
+  .about{
+    margin-top:48px;
+    padding-top:32px;
+    border-top:1px solid var(--border-light);
+    max-width:760px;
+  }
+  .about-head{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+    width:fit-content;
+  }
+  .about-head h2{font-size:22px; font-weight:500; margin:0;}
+  .about-head svg{width:20px; height:20px; color:var(--text-secondary);}
+  .about-text{
+    margin-top:16px;
+    font-size:14px;
+    line-height:1.6;
+    color:var(--text);
+    white-space:pre-line;
+  }
+
+  /* ---------- SIDEBAR ---------- */
+  .side-col{padding-top:4px;}
+  .rating-box{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:16px;
+    margin-bottom:8px;
+  }
+  .rating-badge{
+    width:34px; height:34px;
+    border:2px solid var(--text-secondary);
+    border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:15px; font-weight:700; color:var(--text);
+    flex-shrink:0;
+  }
+  .rating-title{font-size:14px; color:var(--text); margin-bottom:2px;}
+  .rating-link{font-size:13px; color:var(--green);}
+  .rating-link:hover{text-decoration:underline;}
+
+  .side-section{
+    border-top:1px solid var(--border-light);
+    padding:18px 4px;
+  }
+  .side-head{display:flex; align-items:center; justify-content:space-between; cursor:pointer;}
+  .side-head h3{font-size:16px; font-weight:500; margin:0;}
+  .side-head svg{width:20px; height:20px; color:var(--text-secondary);}
+
+  .more-app{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:10px 4px;
+    border-radius:8px;
+  }
+  .more-app:hover{background:var(--bg-hover);}
+  .mini-icon{
+    width:48px; height:48px;
+    border-radius:20%;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-weight:700; font-size:18px;
+    flex-shrink:0;
+  }
+  .mini-name{font-size:14px; color:var(--text);}
+  .mini-dev{font-size:12px; color:var(--text-secondary);}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .grid{grid-template-columns:1fr;}
+    .hero{flex-direction:column-reverse;}
+    .app-title{font-size:32px;}
+    .topbar-inner{gap:20px;}
+    .tabs{gap:18px;}
+  }
+
+  :focus-visible{outline:2px solid var(--green); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <img class="play-logo" src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="Google Play">
+      <span class="brand-name">Google Play</span>
+    </div>
+    <nav class="tabs">
+      <a href="#">Juegos</a>
+      <a href="#" class="active">Apps</a>
+      <a href="#">Libros</a>
+      <a href="#">Infantiles</a>
+    </nav>
+    <div class="search-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+  <div class="grid">
+
+    <!-- ===================== COLUMNA PRINCIPAL ===================== -->
+    <div class="main-col">
+
+      <div class="hero">
+        <div class="hero-text">
+          <!-- EDITA: NOMBRE -->
+          <h1 class="app-title">Horizon Rides</h1>
+
+          <!-- EDITA: DESARROLLADOR -->
+          <a class="dev-link" href="#">Tu Empresa S.L.</a>
+
+          <!-- EDITA: DATOS -->
+          <div class="stats">
+            <div class="stat-col">
+              <span class="stat-value">10 k+</span>
+              <span class="stat-label">Descargas</span>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-install">Instalar</button>
+            <button class="btn btn-text">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                <line x1="8.6" y1="10.5" x2="15.4" y2="6.5"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/>
+              </svg>
+              Compartir
+            </button>
+            <button class="btn btn-text">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+                <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/>
+              </svg>
+              Agregar a la lista de deseos
+            </button>
+          </div>
+
+          <div class="device-note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="14" height="10" rx="1"/><path d="M8 18h4"/>
+              <rect x="17" y="9" width="5" height="9" rx="1"/>
+            </svg>
+            Esta app está disponible para tu dispositivo
+          </div>
+        </div>
+
+        <div class="hero-icon">
+          <!-- EDITA: ICONO — cambia el src por la ruta de tu propio icono -->
+        <!-- EDITA: ICONO -->
+        <img class="app-icon" style="border-radius: 50%; object-fit: cover;" src="img/icono.png" alt="Icono de Horizon Rides">
+        </div>
+      </div>
+
+      <!-- EDITA: CAPTURAS — sustituye cada div.screenshot por <img class="screenshot" src="tu-captura.png"> -->
+      <div class="screenshots">
+        <img class="screenshot" style="padding: 0; object-fit: cover;" src="img/captura1.jpg" alt="Pantalla de inicio">
+        <img class="screenshot" style="padding: 0; object-fit: cover;" src="img/captura2.jpg" alt="Catálogo de autos">
+        <img class="screenshot" style="padding: 0; object-fit: cover;" src="img/captura3.jpg" alt="Detalle de reserva">
+        <img class="screenshot" style="padding: 0; object-fit: cover;" src="img/captura4.jpg" alt="Perfil de usuario">
+      </div>
+
+      <section class="about">
+        <div class="about-head">
+          <h2>Acerca de esta app</h2>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </div>
+        <!-- EDITA: DESCRIPCIÓN -->
+        <p class="about-text">Escribe aquí la descripción de tu app: qué hace, a quién ayuda y qué la hace útil. Puedes usar varias líneas para explicar sus funciones principales y cualquier requisito para usarla.</p>
+      </section>
+
+    </div>
+
+    <!-- ===================== BARRA LATERAL ===================== -->
+    <aside class="side-col">
+      <div class="rating-box">
+        <div class="rating-badge">E</div>
+        <div>
+          <div class="rating-title">Apto para todo público</div>
+          <a href="#" class="rating-link">Más información</a>
+        </div>
+      </div>
+
+      <div class="side-section">
+        <div class="side-head">
+          <h3>Asistencia de la app</h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- EDITA: OTRAS APPS -->
+      <div class="side-section">
+        <div class="side-head">
+          <h3>Más de Horizon Rides</h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </div>
+
+        <a class="more-app" href="#">
+          <div class="mini-icon" style="background:#0F172A;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <div>
+            <div class="mini-name">Horizon Wallet</div>
+            <div class="mini-dev">Horizon Rides</div>
+          </div>
+        </a>
+        
+        <a class="more-app" href="#">
+          <div class="mini-icon" style="background:#047857;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A7F3D0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/>
+              <line x1="9" y1="3" x2="9" y2="18"/>
+              <line x1="15" y1="6" x2="15" y2="21"/>
+            </svg>
+          </div>
+          <div>
+            <div class="mini-name">Rutas 360 - GPS Maps</div>
+            <div class="mini-dev">Horizon Rides</div>
+          </div>
+        </a>
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+</body>
+</html>
